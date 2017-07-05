@@ -38,7 +38,7 @@
         <url>git@github.com:tabulapdf/tabula-java.git</url>
         <tag>tabula-1.0.0-SNAPSHOT</tag>
     </scm>
-
+<!--
     <repositories>
         <repository>
             <id>sonatype</id>
@@ -46,12 +46,12 @@
             <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
         </repository>
     </repositories>
-
+-->
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
-
+<!--
     <distributionManagement>
         <snapshotRepository>
             <id>ossrh</id>
@@ -62,13 +62,13 @@
             <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
         </repository>
     </distributionManagement>
-
+-->
     <reporting>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.10.3</version>
+                <version>2.10.4</version>
                 <configuration>
                     <skip>true</skip>
                 </configuration>
@@ -78,7 +78,7 @@
 
     <build>
         <plugins>
-            <plugin>
+           <!-- <plugin>
                 <groupId>org.sonatype.plugins</groupId>
                 <artifactId>nexus-staging-maven-plugin</artifactId>
                 <version>1.6.3</version>
@@ -89,11 +89,11 @@
                     <stagingProfileId>40766864c3b853</stagingProfileId>
                     <autoReleaseAfterClose>true</autoReleaseAfterClose>
                 </configuration>
-            </plugin>
+            </plugin> -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-                <version>2.2.1</version>
+                <version>2.4</version>
                 <executions>
                     <execution>
                         <id>attach-sources</id>
@@ -106,7 +106,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.9.1</version>
+                <version>2.10.4</version>
                 <executions>
                     <execution>
                         <id>attach-javadocs</id>
@@ -116,10 +116,10 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
+         <!--  <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-gpg-plugin</artifactId>
-                <version>1.5</version>
+                <version>1.8</version>
                 <executions>
                     <execution>
                         <id>sign-artifacts</id>
@@ -129,28 +129,44 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin> -->
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
+                <version>3.6.1</version>
                 <configuration>
                     <source>1.7</source>
                     <target>1.7</target>
                 </configuration>
             </plugin>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.0.2</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.0.0</version>
                 <configuration>
                     <archive>
                         <manifest>
                             <mainClass>technology.tabula.CommandLineApp</mainClass>
                         </manifest>
-                </archive>
-                <descriptorRefs>
-                    <descriptorRef>jar-with-dependencies</descriptorRef>
-                </descriptorRefs>
-            </configuration>
-        </plugin>
+                    </archive>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <appendAssemblyId>false</appendAssemblyId>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-surefire-plugin</artifactId>
@@ -170,7 +186,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.9.1</version>
+                <version>2.10.4</version>
                 <executions>
                     <execution>
                         <id>attach-javadocs</id>
@@ -183,7 +199,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-source-plugin</artifactId>
-                    <version>2.2.1</version>
+                    <version>2.4</version>
                     <executions>
                         <execution>
                             <id>attach-sources</id>
@@ -193,7 +209,7 @@
                         </execution>
                     </executions>
                 </plugin>
-                <plugin>
+               <!-- <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-gpg-plugin</artifactId>
                     <version>1.5</version>
@@ -206,17 +222,18 @@
                             </goals>
                         </execution>
                     </executions>
-                </plugin>
+                </plugin> -->
             </plugins>
         </build>
     </profile>
 </profiles>
 
 <dependencies>
+    <!-- R-tree http://jsi.sourceforge.net/ https://github.com/aled/jsi/releases https://github.com/aled/jsi/issues/33 -->
     <dependency>
         <groupId>net.sf.jsi</groupId>
         <artifactId>jsi</artifactId>
-        <version>1.1.0-SNAPSHOT</version>
+        <version>1.1.1-SNAPSHOT</version>
     </dependency>
 
     <dependency>
@@ -234,13 +251,13 @@
     <dependency>
         <groupId>org.apache.pdfbox</groupId>
         <artifactId>pdfbox</artifactId>
-        <version>2.0.5</version>
+        <version>2.0.6</version>
     </dependency>
 
     <dependency>
         <groupId>org.apache.pdfbox</groupId>
         <artifactId>pdfbox-tools</artifactId>
-        <version>2.0.5</version>
+        <version>2.0.6</version>
     </dependency>
 
     <dependency>
@@ -258,7 +275,7 @@
     <dependency>
         <groupId>junit</groupId>
         <artifactId>junit</artifactId>
-        <version>4.11</version>
+        <version>4.12</version>
         <scope>test</scope>
     </dependency>
 
@@ -277,7 +294,7 @@
     <dependency>
         <groupId>com.google.code.gson</groupId>
         <artifactId>gson</artifactId>
-        <version>2.8.0</version>
+        <version>2.8.1</version>
     </dependency>
 </dependencies>
 
